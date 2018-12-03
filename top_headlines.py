@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for
 import requests
-import secrets_example
+import secrets
 import json
 
 app = Flask(__name__)   #making an instance
@@ -14,7 +14,7 @@ def default():
 @app.route('/user/<name>')
 def nyt_articles(name):
     base_url = 'https://api.nytimes.com/svc/topstories/v2/technology.json'
-    params = {'api-key':secrets_example.api_key}
+    params = {'api-key':secrets.api_key}
     results = requests.get(base_url, params)
     nyt_results = results.text
     nyt_data_obj = json.loads(nyt_results)['results']
@@ -31,7 +31,7 @@ def nyt_article_gen(name,location):
     beginning_url = 'https://api.nytimes.com/svc/topstories/v2/'
     end_url = location+'.json'
     base_url = beginning_url+end_url
-    params = {'api-key':secrets_example.api_key}
+    params = {'api-key':secrets.api_key}
     results = requests.get(base_url, params)
     nyt_results = results.text
     nyt_data_obj = json.loads(nyt_results)['results']
